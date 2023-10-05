@@ -1,0 +1,42 @@
+html, body {
+  margin: 0;
+  padding: 0;
+}
+canvas {
+  display: block;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    background-color: lightgray;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    /* vmin skalerer responsivt til viewporten */
+    letter-spacing: 1vmin;
+}
+
+.beholder {
+    max-width: 100%;
+    text-align: center;
+    color: rgb(31, 28, 28);
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+}
+
+@media (max-width: 768px) {
+    .beholder {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+@media (max-width: 480px) {
+    .beholder {
+        grid-template-columns: 1fr;
+        /* 1 kolonne på ekstra små skærme */
+        grid-template-areas:
+            'header'
+            'menu'
+            'main'
+            'footer';
+    }
+}
