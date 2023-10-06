@@ -28,8 +28,8 @@ function draw() {
   print(ballPos);
   background(0);
   push();
-  ballVel.x += constrain(rotationX, -90, 90) / 10;  
-  ballVel.y += rotationY / 10;
+  ballVel.x += rotationY / 10;
+  ballVel.y += constrain(rotationX, -90, 90) / 10;
   ballPos.x += ballVel.x;
   ballPos.y += ballVel.y;
   colorMode(HSB, 1);
@@ -37,7 +37,7 @@ function draw() {
   circle(ballPos.x, ballPos.y, 50);
   fill(255);
   textAlign(CENTER, CENTER);
-  text("!!!", width / 2, 50);
+  text("!!!!", width / 2, 50);
   text("X: " + str(int(rotationX)), width / 2, 100);
   text("Y: " + str(int(rotationY)), width / 2, 200);
   text("Z: " + str(int(rotationZ)), width / 2, 300);
