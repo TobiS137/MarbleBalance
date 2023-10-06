@@ -1,4 +1,6 @@
-let ball;
+let ballPos;
+let ballVel;
+
 
 function setup() {
   canvas = createCanvas(300, 500, 'beholder');
@@ -17,7 +19,9 @@ function setup() {
     // indsæt canvas i ny position i rækkefølgen af elementer i div'en beholder
     parentDiv.appendChild(canvas.elt);
 
-    ball = createVector(width / 2, height / 2);
+    ballPos = createVector(width / 2, height / 2);
+    ballVel = createVector(0, 0);
+
 }
 
 function draw() {
@@ -29,5 +33,11 @@ function draw() {
   text("X: " + str(int(rotationX)), width / 2, 150);
   text("Y: " + str(int(rotationY)), width / 2, 300);
   text("Z: " + str(int(rotationZ)), width / 2, 450);
+  ballVel.x += clamp(rotationX, -90, 90) / 10;
+  ballVel.y += rotationY / 10;
+  ballPos += ballVel;
+  colorMode(HSB, 1);
+  fill(map(ballPos.y, 0, height, 0, 1), map(ballPos.x, 0, width, 0, 1), 0);
+  circle(ballPos.x, ballPos.y, 50);
   pop();
 }
