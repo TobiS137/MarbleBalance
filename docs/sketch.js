@@ -3,7 +3,7 @@ let ballVel;
 
 
 function setup() {
-  canvas = createCanvas(300, 500, 'beholder');
+  canvas = createCanvas(windowWidth, windowHeight, 'beholder');
   textSize(18);
   // giver canvas border på 2 pixel, 
   // og sørger derefter for at kanten tælles med i width

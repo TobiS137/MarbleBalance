@@ -20,7 +20,7 @@ body {
     text-align: center;
     color: rgb(31, 28, 28);
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-columns: 1fr;
 }
 
 @media (max-width: 768px) {
