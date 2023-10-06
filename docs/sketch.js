@@ -37,7 +37,7 @@ function draw() {
   ballVel.y += rotationY / 10;
   ballPos += ballVel;
   colorMode(HSB, 1);
-  fill(map(ballPos.y, 0, height, 0, 1), map(ballPos.x, 0, width, 0, 1), 0);
+  fill(map(ballPos.y, 0, height, 0, 1), map(ballPos.x, 0, width, 0, 1), 1);
   circle(ballPos.x, ballPos.y, 50);
   pop();
 }
