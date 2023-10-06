@@ -25,8 +25,8 @@ function draw() {
   push();
   fill(255);
   textAlign(CENTER, CENTER);
-  text(str(int(rotationX)), width / 2, 150);
-  text(str(int(rotationY)), width / 2, 300);
-  text(str(int(rotationZ)), width / 2, 450);
+  text("X: " + str(int(rotationX)), width / 2, 150);
+  text("Y: " + str(int(rotationY)), width / 2, 300);
+  text("Z: " + str(int(rotationZ)), width / 2, 450);
   pop();
 }
