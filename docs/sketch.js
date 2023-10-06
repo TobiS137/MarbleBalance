@@ -24,6 +24,6 @@ function draw() {
   background(0);
   push();
   fill(255);
-  circle(ball.x, ball.y, 500);
+  circle(ball.x, ball.y, 50);
   pop();
 }
