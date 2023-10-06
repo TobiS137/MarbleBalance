@@ -3,7 +3,7 @@ let ballVel;
 
 
 function setup() {
-  canvas = createCanvas(windowWidth, windowHeight, 'beholder');
+  canvas = createCanvas(300, 500, 'beholder');
   textSize(18);
   // giver canvas border på 2 pixel, 
   // og sørger derefter for at kanten tælles med i width
@@ -37,7 +37,7 @@ function draw() {
   circle(ballPos.x, ballPos.y, 50);
   fill(255);
   textAlign(CENTER, CENTER);
-  text("!", width / 2, 50);
+  text("!!", width / 2, 50);
   text("X: " + str(int(rotationX)), width / 2, 100);
   text("Y: " + str(int(rotationY)), width / 2, 200);
   text("Z: " + str(int(rotationZ)), width / 2, 300);
