@@ -41,6 +41,6 @@ function draw() {
   text("X: " + str(int(rotationX)), width / 2, 100);
   text("Y: " + str(int(rotationY)), width / 2, 200);
   text("Z: " + str(int(rotationZ)), width / 2, 300);
-  text("(" + str(ballPos.x) + ", " + str(ballPos.y) + ")", width / 2, 400);
+  text("(" + str(int(ballPos.x)) + ", " + str((ballPos.y)) + ")", width / 2, 400);
   pop();
 }
