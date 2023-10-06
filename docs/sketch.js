@@ -33,7 +33,7 @@ function draw() {
   text("X: " + str(int(rotationX)), width / 2, 150);
   text("Y: " + str(int(rotationY)), width / 2, 300);
   text("Z: " + str(int(rotationZ)), width / 2, 450);
-  ballVel.x += clamp(rotationX, -90, 90) / 10;
+  ballVel.x += constrain(rotationX, -90, 90) / 10;
   ballVel.y += rotationY / 10;
   ballPos += ballVel;
   colorMode(HSB, 1);
