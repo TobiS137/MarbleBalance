@@ -28,12 +28,13 @@ function draw() {
   ballVel.y += constrain(int(rotationX), -90, 90) / 100;
   ballPos.x += ballVel.x;
   ballPos.y += ballVel.y;
+  checkBounds(ballPos);
   colorMode(HSB, 1);
   fill(map(ballPos.y, 0, height, 0, 1), map(ballPos.x, 0, width, 0, 1), 1);
   circle(ballPos.x, ballPos.y, 50);
   fill(255);
   textAlign(CENTER, CENTER);
-  text("!!!", width / 2, ballSize);
+  text("!!!!", width / 2, ballSize);
   text("X: " + str(int(rotationX)), width / 2, 100);
   text("Y: " + str(int(rotationY)), width / 2, 200);
   text("Z: " + str(int(rotationZ)), width / 2, 300);
