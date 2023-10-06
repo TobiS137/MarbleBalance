@@ -1,6 +1,8 @@
 let ballPos;
 let ballVel;
 
+let ballSize = 50;
+
 
 function setup() {
   canvas = createCanvas(300, 500, 'beholder');
@@ -10,13 +12,7 @@ function setup() {
   canvas.elt.style.border = '5px solid black';
   canvas.elt.style.boxSizing = 'border-box';
   canvas.elt.style.borderRadius = '20px';
-  canvas.parent('#beholder');
-  // gør canvas-elementet responsivt til skærmbredden
-  canvas.elt.style.width = '100%';    canvas.elt.style.height = '100%';
-  //bemærk at noden skal pakkes ud via .elt
-  const parentDiv = select('#beholder').elt;
-  // indsæt canvas i ny position i rækkefølgen af elementer i div'en beholder
-  parentDiv.appendChild(canvas.elt);
+  
 
   ballPos = createVector(width / 2, height / 2);
   ballVel = createVector(0, 0);
@@ -28,8 +24,8 @@ function draw() {
   print(ballPos);
   background(0);
   push();
-  ballVel.x += rotationY / 100;
-  ballVel.y += constrain(rotationX, -90, 90) / 100;
+  ballVel.x += int(rotationY) / 100;
+  ballVel.y += constrain(int(rotationX), -90, 90) / 100;
   ballPos.x += ballVel.x;
   ballPos.y += ballVel.y;
   colorMode(HSB, 1);
@@ -37,10 +33,27 @@ function draw() {
   circle(ballPos.x, ballPos.y, 50);
   fill(255);
   textAlign(CENTER, CENTER);
-  text("!!!", width / 2, 50);
+  text("!!!", width / 2, ballSize);
   text("X: " + str(int(rotationX)), width / 2, 100);
   text("Y: " + str(int(rotationY)), width / 2, 200);
   text("Z: " + str(int(rotationZ)), width / 2, 300);
-  text("(" + str(int(ballPos.x)) + ", " + str(int(ballPos.y)) + ")", width / 2, 400);
   pop();
+}
+
+function checkBounds(ballPos) {
+  if (ballPos.x + ballSize / 2 < 0) {
+    ballPos.x = width + ballSize / 2 - 5;
+  }
+
+  if (ballPos.x - ballSize / 2 > width) {
+    ballPos.x = -ballSize / 2 + 5;
+  }
+
+  if (ballPos.y + ballSize / 2 < 0) {
+    ballPos.y = height + ballSize / 2 - 5;
+  }
+  
+  if (ballPos.y - ballSize / 2 > height) {
+    ballPos.y = -ballSize / 2 + 5;
+  }
 }
