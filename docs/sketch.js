@@ -4,7 +4,7 @@ let ballVel;
 
 function setup() {
   canvas = createCanvas(300, 500, 'beholder');
-  textSize(24);
+  textSize(18);
   // giver canvas border på 2 pixel, 
   // og sørger derefter for at kanten tælles med i width
   canvas.elt.style.border = '5px solid black';
@@ -28,8 +28,8 @@ function draw() {
   print(ballPos);
   background(0);
   push();
-  ballVel.x += rotationY / 10;
-  ballVel.y += constrain(rotationX, -90, 90) / 10;
+  ballVel.x += rotationY / 100;
+  ballVel.y += constrain(rotationX, -90, 90) / 100;
   ballPos.x += ballVel.x;
   ballPos.y += ballVel.y;
   colorMode(HSB, 1);
@@ -37,10 +37,10 @@ function draw() {
   circle(ballPos.x, ballPos.y, 50);
   fill(255);
   textAlign(CENTER, CENTER);
-  text("!!!!", width / 2, 50);
+  text("!!!!!", width / 2, 50);
   text("X: " + str(int(rotationX)), width / 2, 100);
   text("Y: " + str(int(rotationY)), width / 2, 200);
   text("Z: " + str(int(rotationZ)), width / 2, 300);
-  text("Ball: (" + str(ballPos.x) + ", " + str(ballPos.y) + ")", width / 2, 400);
+  text("(" + str(ballPos.x) + ", " + str(ballPos.y) + ")", width / 2, 400);
   pop();
 }
