@@ -4,7 +4,7 @@ let ballVel;
 let ballSize = 50;
 
 function setup() {
-  let canvas = createCanvas(windowHeight / 20 * 11 * 0.2, windowHeight * 0.2);
+  let canvas = createCanvas(windowHeight / 20 * 11, windowHeight);
   textSize(12);
 
   // giver canvas border på 2 pixel, 
@@ -17,10 +17,11 @@ function setup() {
 
   ballPos = createVector(width / 2, height / 2);
   ballVel = createVector(0, 0);
+  pixelDensity(1);
 }
 
 function draw() {
-  resizeCanvas(windowHeight / 20 * 9, windowHeight);
+  resizeCanvas(windowHeight / 20 * 10, windowHeight);
   print(ballPos);
   background(0);
   push();
