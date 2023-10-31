@@ -23,12 +23,15 @@ function setup() {
 }
 
 function draw() {
+  print(ballVel);
   resizeCanvas(windowHeight / 20 * ((mq.matches) ? windowWidth : 10.5), windowHeight);
-  print(ballPos);
+  //print(ballPos);
   background(0);
   push();
-  ballVel.x += int(rotationY) / 100;
-  ballVel.y += constrain(int(rotationX), -90, 90) / 100;
+  if (rotationX != undefined && rotationY != undefined) {
+    ballVel.x += int(rotationY) / 100;
+    ballVel.y += constrain(int(rotationX), -90, 90) / 100;
+  }
   ballPos.x += ballVel.x;
   ballPos.y += ballVel.y;
   checkBounds(ballPos);
@@ -47,24 +50,24 @@ function draw() {
 function checkBounds(ballPos) {
   let n;
   let colliding = false;
-  if (ballPos.x - ballSize < 0) {
+  if (ballPos.x - ballSize / 2 < 0) {
     n = createVector(1, 0);
     colliding = true;
   }
-  if (ballPos.x + ballSize > 0) {
+  if (ballPos.x + ballSize / 2 > width) {
     n = createVector(-1, 0);
     colliding = true;
   }
-  if (ballPos.y - ballSize < 0) {
+  if (ballPos.y - ballSize / 2 < 0) {
     n = createVector(0, 1);
     colliding = true;
   }
-  if (ballPos.y + ballSize > 0) {
+  if (ballPos.y + ballSize / 2 > height) {
     n = createVector(0, -1);
     colliding = true;
   }
 
   if (colliding) {
-    ballVel = -(2*(n * ballVel) * n - ballVel);
+    ballVel = ballVel.reflect(n);
   }
 }
