@@ -3,6 +3,8 @@ let ballVel;
 
 let ballSize = 50;
 
+const mq = window.matchMedia("(max-width: 480px)");
+
 function setup() {
   let canvas = createCanvas(windowHeight / 20 * 11, windowHeight);
   textSize(36);
@@ -21,7 +23,7 @@ function setup() {
 }
 
 function draw() {
-  resizeCanvas(windowHeight / 20 * 10, windowHeight);
+  resizeCanvas(windowHeight / 20 * ((mq.matches) ? windowWidth : 10.5), windowHeight);
   print(ballPos);
   background(0);
   push();
