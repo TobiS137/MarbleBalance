@@ -45,19 +45,26 @@ function draw() {
 }
 
 function checkBounds(ballPos) {
-  if (ballPos.x + ballSize / 2 < 0) {
-    ballPos.x = width + ballSize / 2 - 5;
+  let n;
+  let colliding = false;
+  if (ballPos.x - ballSize < 0) {
+    n = createVector(1, 0);
+    colliding = true;
+  }
+  if (ballPos.x + ballSize > 0) {
+    n = createVector(-1, 0);
+    colliding = true;
+  }
+  if (ballPos.y - ballSize < 0) {
+    n = createVector(0, 1);
+    colliding = true;
+  }
+  if (ballPos.y + ballSize > 0) {
+    n = createVector(0, -1);
+    colliding = true;
   }
 
-  if (ballPos.x - ballSize / 2 > width) {
-    ballPos.x = -ballSize / 2 + 5;
-  }
-
-  if (ballPos.y + ballSize / 2 < 0) {
-    ballPos.y = height + ballSize / 2 - 5;
-  }
-  
-  if (ballPos.y - ballSize / 2 > height) {
-    ballPos.y = -ballSize / 2 + 5;
+  if (colliding) {
+    ballVel = -(2*(n * ballVel) * n - ballVel);
   }
 }
