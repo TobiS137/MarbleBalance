@@ -4,10 +4,9 @@ let ballVel;
 let ballSize = 50;
 
 function setup() {
-  let canvas = createCanvas(windowHeight / 20 * 9, windowHeight);
+  let canvas = createCanvas(windowHeight / 20 * 11 * 0.2, windowHeight * 0.2);
   textSize(12);
 
-  
   // giver canvas border på 2 pixel, 
   // og sørger derefter for at kanten tælles med i width
   canvas.elt.style.border = '5px solid black';
