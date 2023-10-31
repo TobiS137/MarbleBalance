@@ -5,7 +5,7 @@ let ballSize = 50;
 
 function setup() {
   let canvas = createCanvas(windowHeight / 20 * 11, windowHeight);
-  textSize(12);
+  textSize(36);
 
   // giver canvas border på 2 pixel, 
   // og sørger derefter for at kanten tælles med i width
