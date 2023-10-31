@@ -3,24 +3,25 @@ let ballVel;
 
 let ballSize = 50;
 
-
 function setup() {
-  canvas = createCanvas(300, 500, 'beholder');
+  let canvas = createCanvas(windowHeight / 20 * 9, windowHeight);
   textSize(12);
+
+  
   // giver canvas border på 2 pixel, 
   // og sørger derefter for at kanten tælles med i width
   canvas.elt.style.border = '5px solid black';
   canvas.elt.style.boxSizing = 'border-box';
   canvas.elt.style.borderRadius = '20px';
   
+  document.getElementById("beholder").appendChild(canvas.elt);
 
   ballPos = createVector(width / 2, height / 2);
   ballVel = createVector(0, 0);
-
-  print(ballPos);
 }
 
 function draw() {
+  resizeCanvas(windowHeight / 20 * 9, windowHeight);
   print(ballPos);
   background(0);
   push();

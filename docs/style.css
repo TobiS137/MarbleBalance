@@ -1,42 +1,40 @@
-html, body {
-  margin: 0;
-  padding: 0;
-}
 canvas {
   display: block;
+  grid-area: center;
 }
 
 body {
+    overflow: hidden;
     margin: 0;
     padding: 0;
     background-color: lightgray;
-    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
     /* vmin skalerer responsivt til viewporten */
     letter-spacing: 1vmin;
 }
 
 .beholder {
-    max-width: 100%;
+    width: 100%;
+    height: 100%;
     text-align: center;
     color: rgb(31, 28, 28);
     display: grid;
+    justify-items: center;
     grid-template-columns: 1fr 1fr 1fr;
+    grid-template-areas: 'left center right';
+    
 }
 
-@media (max-width: 768px) {
+@media only screen and (max-width: 768px) {
     .beholder {
         grid-template-columns: 1fr 1fr;
+        grid-template-areas: 'left center';
     }
 }
 
-@media (max-width: 480px) {
+@media only screen and (max-width: 480px) {
     .beholder {
         grid-template-columns: 1fr;
+        grid-template-areas: 'center';
         /* 1 kolonne på ekstra små skærme */
-        grid-template-areas:
-            'header'
-            'menu'
-            'main'
-            'footer';
     }
 }
