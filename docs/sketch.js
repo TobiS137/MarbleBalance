@@ -1,8 +1,8 @@
 let ballPos;
 let ballVel;
-let ballSize = 50;
+let ballSize = 100;
 
-let friction = 0.2;
+let friction = 0.1;
 
 const mq = window.matchMedia("(max-width: 480px)");
 
@@ -19,7 +19,7 @@ function setup() {
   document.getElementById("beholder").appendChild(canvas.elt);
 
   ballPos = createVector(width / 2, height / 2);
-  ballVel = createVector(10, 0);
+  ballVel = createVector(10, 100);
   pixelDensity(1);
 }
 
@@ -38,7 +38,7 @@ function draw() {
   checkBounds(ballPos);
   colorMode(HSB, 1);
   fill(map(ballPos.y, 0, height, 0, 1), map(ballPos.x, 0, width, 0, 1), 1);
-  circle(ballPos.x, ballPos.y, 50);
+  circle(ballPos.x, ballPos.y, ballSize);
   fill(255);
   textAlign(CENTER, CENTER);
   text("!!!!", width / 2, ballSize);
@@ -49,31 +49,40 @@ function draw() {
 }
 
 function checkBounds(ballPos) {
-  let n;
-  let colliding = false;
   if (ballPos.x - ballSize / 2 < 0) {
-    n = createVector(1, 0);
     ballPos.x = ballSize / 2 + 2;
-    colliding = true;
+    if (ballVel.x < 0) {
+      ballVel.x = ballVel.x * (-1 + friction);
+    }
+    if (abs(ballVel.x) < 0) {
+      ballVel.x = 0;
+    }
   }
   if (ballPos.x + ballSize / 2 > width) {
-    n = createVector(-1, 0);
     ballPos.x = width - ballSize / 2 - 2;
-    colliding = true;
+    if (ballVel.x > 0) {
+      ballVel.x = ballVel.x * (-1 + friction);
+    }
+    if (abs(ballVel.x) < 0) {
+      ballVel.x = 0;
+    }
   }
   if (ballPos.y - ballSize / 2 < 0) {
-    n = createVector(0, 1);
     ballPos.y = ballSize / 2 + 2;
-    colliding = true;
+    if (ballVel.y < 0) {
+      ballVel.y = ballVel.y * (-1 + friction);
+    }
+    if (abs(ballVel.y) < 0) {
+      ballVel.y = 0;
+    }
   }
   if (ballPos.y + ballSize / 2 > height) {
-    n = createVector(0, -1);
     ballPos.y = height - ballSize / 2 - 2;
-    colliding = true;
-  }
-
-  if (colliding) {
-    ballVel = ballVel.reflect(n);
-    ballVel = ballVel.setMag(ballVel.mag() * (1 - friction));
+    if (ballVel.y > 0) {
+      ballVel.y = ballVel.y * (-1 + friction);
+    }
+    if (abs(ballVel.y) < 0) {
+      ballVel.y = 0;
+    }
   }
 }
