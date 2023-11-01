@@ -1,7 +1,8 @@
 let ballPos;
 let ballVel;
-
 let ballSize = 50;
+
+let friction = 0.2;
 
 const mq = window.matchMedia("(max-width: 480px)");
 
@@ -18,7 +19,7 @@ function setup() {
   document.getElementById("beholder").appendChild(canvas.elt);
 
   ballPos = createVector(width / 2, height / 2);
-  ballVel = createVector(0, 0);
+  ballVel = createVector(10, 0);
   pixelDensity(1);
 }
 
@@ -52,22 +53,27 @@ function checkBounds(ballPos) {
   let colliding = false;
   if (ballPos.x - ballSize / 2 < 0) {
     n = createVector(1, 0);
+    ballPos.x = ballSize / 2 + 2;
     colliding = true;
   }
   if (ballPos.x + ballSize / 2 > width) {
     n = createVector(-1, 0);
+    ballPos.x = width - ballSize / 2 - 2;
     colliding = true;
   }
   if (ballPos.y - ballSize / 2 < 0) {
     n = createVector(0, 1);
+    ballPos.y = ballSize / 2 + 2;
     colliding = true;
   }
   if (ballPos.y + ballSize / 2 > height) {
     n = createVector(0, -1);
+    ballPos.y = height - ballSize / 2 - 2;
     colliding = true;
   }
 
   if (colliding) {
     ballVel = ballVel.reflect(n);
+    ballVel = ballVel.setMag(ballVel.mag() * (1 - friction));
   }
 }
