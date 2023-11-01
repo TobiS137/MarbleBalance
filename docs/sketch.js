@@ -43,10 +43,10 @@ function draw() {
   circle(ballPos.x, ballPos.y, ballSize);
   fill(255);
   textAlign(CENTER, CENTER);
-  text("!!!!", width / 2, ballSize);
-  text("X: " + str(int(rotationX)), width / 2, 100);
-  text("Y: " + str(int(rotationY)), width / 2, 200);
-  text("Vel: (" + str(ballVel.x) + ", " + str(ballVel.y) + ")", width / 2, 300);
+  text("!!!!", width / 2, 100);
+  text("X: " + str(int(rotationX)), width / 2, 200);
+  text("Y: " + str(int(rotationY)), width / 2, 300);
+  text("Vel: (" + str(ballVel.x) + ", " + str(ballVel.y) + ")", width / 2, 400);
   pop();
 }
 
