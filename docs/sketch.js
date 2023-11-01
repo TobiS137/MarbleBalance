@@ -19,7 +19,7 @@ function setup() {
   document.getElementById("beholder").appendChild(canvas.elt);
 
   ballPos = createVector(width / 2, height / 2);
-  ballVel = createVector(10, 100);
+  ballVel = createVector(0, 0);
   pixelDensity(1);
 }
 
