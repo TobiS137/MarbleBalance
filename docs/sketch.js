@@ -24,9 +24,7 @@ function setup() {
 }
 
 function draw() {
-  print(ballVel);
   resizeCanvas(windowHeight / 20 * ((mq.matches) ? windowWidth : 10.5), windowHeight);
-  //print(ballPos);
   background(0);
   push();
   if (rotationX != undefined && rotationY != undefined) {
@@ -44,7 +42,7 @@ function draw() {
   text("!!!!", width / 2, ballSize);
   text("X: " + str(int(rotationX)), width / 2, 100);
   text("Y: " + str(int(rotationY)), width / 2, 200);
-  text("Z: " + str(int(rotationZ)), width / 2, 300);
+  text("Vel: (" + str(ballVel.x) + ", " + str(ballVel.y) + ")", width / 2, 300);
   pop();
 }
 
