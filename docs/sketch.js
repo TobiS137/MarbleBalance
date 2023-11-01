@@ -2,7 +2,7 @@ let ballPos;
 let ballVel;
 let ballSize = 100;
 
-let friction = 0.2;
+let friction = 0.5;
 
 const mq = window.matchMedia("(max-width: 480px)");
 
@@ -19,7 +19,7 @@ function setup() {
   document.getElementById("beholder").appendChild(canvas.elt);
 
   ballPos = createVector(width / 2, height / 2);
-  ballVel = createVector(0, 0);
+  ballVel = createVector(5, 0);
   pixelDensity(1);
 }
 
@@ -29,10 +29,10 @@ function draw() {
   push();
   if (rotationX != undefined && rotationY != undefined) {
     if (ballPos.x + ballVel.x + int(rotationY) / 100 > 0 && ballPos.x + ballVel.x + int(rotationY) / 100 < width) {
-      ballVel.x += int(rotationY) / 100;
+      ballVel.x += int(rotationY) / 50;
     }
     if (ballPos.y + ballVel.y + constrain(int(rotationX), -90, 90) / 100 > 0 && ballPos.x + ballVel.x + constrain(int(rotationX), -90, 90) / 100 < width) {
-      ballVel.y += constrain(int(rotationX), -90, 90) / 100;
+      ballVel.y += constrain(int(rotationX), -90, 90) / 50;
     }
   }
   ballPos.x += ballVel.x;
