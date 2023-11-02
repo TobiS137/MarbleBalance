@@ -82,7 +82,7 @@ class Ball {
     return hits;
   }
 
-  respondCollision(his) {
+  respondCollision(hits) {
     
   }
 
