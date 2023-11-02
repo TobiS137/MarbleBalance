@@ -81,8 +81,8 @@ class Ball {
     });
     return hits;
   }
-  
-  respondCollision(hits) {
+
+  respondCollision(his) {
     
   }
 
