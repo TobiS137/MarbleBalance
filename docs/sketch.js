@@ -41,7 +41,7 @@ function draw() {
   circle(ballPos.x, ballPos.y, ballSize);
   fill(255);
   textAlign(CENTER, CENTER);
-  text("!!!!", width / 2, 100);
+  text("!!!!!", width / 2, 100);
   text("X: " + str(int(rotationX)), width / 2, 200);
   text("Y: " + str(int(rotationY)), width / 2, 300);
   text("mq? - " + str(mq.matches) + ": " + str(windowWidth), width / 2, 400);
