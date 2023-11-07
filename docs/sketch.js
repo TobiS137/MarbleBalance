@@ -5,8 +5,10 @@ let ballSize = 150;
 let ballPos;
 let ballVel;
 
+let show = false;
+
 function setup() {
-  let canvas = createCanvas(windowHeight / 20 * 11, windowHeight);
+  let canvas = createCanvas(windowWidth, windowHeight);
   textSize(36);
 
   // giver canvas border på 2 pixel, 
@@ -22,8 +24,14 @@ function setup() {
 }
 
 function draw() {
+  if (!show) {
+    show = true;
+    return;
+  }
+  resizeCanvas((rotationX != null || mq.matches) ? windowWidth : windowHeight / 20 * 10.5, windowHeight);
   background(0);
   push();
+  print(rotationX);
   if (rotationX != undefined && rotationY != undefined) {
     if (ballPos.x + ballVel.x + int(rotationY) / 100 > 0 && ballPos.x + ballVel.x + int(rotationY) / 100 < width) {
       ballVel.x += int(rotationY) / 50;
@@ -46,16 +54,9 @@ function draw() {
   text("mq? - " + str(mq.matches) + ": " + str(windowWidth), width / 2, 400);
 
   pop();
+
 }
 
-function windowResized() {
-  if ((rotationX != undefined && rotationY != undefined) || mq.matches) {
-    resizeCanvas(windowWidth, windowHeight);
-  } else {
-    resizeCanvas(windowHeight / 20 * 10.5, windowHeight);
-  }
-  
-}
 
 function checkBounds(ballPos) {
   if (ballPos.x - ballSize / 2 < 0) {
