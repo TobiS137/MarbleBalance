@@ -1,7 +1,7 @@
 const friction = 0.5;
 const mq = window.matchMedia("(max-width: 480px)");
 
-let ballSize = 50;
+let ballSize = 150;
 let ballPos;
 let ballVel;
 
