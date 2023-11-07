@@ -1,12 +1,10 @@
-let ballPos;
-let ballVel;
-let ballSize = 100;
-
-let friction = 0.5;
+const friction = 0.5;
 
 const mq = window.matchMedia("(max-width: 480px)");
 
-let walls = [];
+let ball;
+let squares = [];
+let bounds = [];
 
 function setup() {
   let canvas = createCanvas(windowHeight / 20 * 10.5, windowHeight);
@@ -21,72 +19,134 @@ function setup() {
   
   document.getElementById("beholder").appendChild(canvas.elt);
 
-  ballPos = createVector(width / 2, height / 2);
-  ballVel = createVector(5, 0);
+  ball = new Ball(width / 2, height / 2, 50);
+  //squares.push(new Square(width / 2, height / 2, 75));
+  loadBounds();
   
-  walls.push(new Wall(width / 4, width - width / 4, height / 4, height - height / 4));
 }
 
 function draw() {
-  resizeCanvas((mq.matches) ? windowWidth : windowHeight / 20 * 10.5, windowHeight);
+  frameRate(map(mouseX, 1, width, 0, 60));
   background(0);
   push();
+  squares.forEach((square) => {
+    square.draw();
+  });
+  bounds.forEach((wall) => {
+    wall.draw();
+  });
+  ball.update();
+  ball.draw();
   fill(255);
-  wall.draw();
   textAlign(CENTER, CENTER);
   text("!!!!", width / 2, 100);
   text("X: " + str(int(rotationX)), width / 2, 200);
   text("Y: " + str(int(rotationY)), width / 2, 300);
-  text("Vel: (" + str(ballVel.x) + ", " + str(ballVel.y) + ")", width / 2, 400);
   pop();
+}
+
+function windowResized() {
+  resizeCanvas((mq.matches) ? windowWidth : windowHeight / 20 * 10.5, windowHeight);
+  loadBounds();
+}
+
+function loadBounds() {
+  bounds = [];
+  bounds.push(new Wall(-1, height / 4 * 3, width + 1, height + 1));
+  bounds.push(new Wall(-2, -2, width + 2, -2));
+  bounds.push(new Wall(width + 2, -2, width + 2, height + 2));
+  bounds.push(new Wall(width + 2, height + 2, -2, height + 2));
+  bounds.push(new Wall(-2, height + 2, -2, -2));
 }
 
 class Ball {
   constructor(x, y, r) {
     this.pos = createVector(x, y);
-    this.vel = createVector(0, 0);
+    this.vel = createVector(0, 5);
     this.r = r;
   }
 
   update() {
+    let hit = this.checkCollisions(squares, bounds, this.pos.x, this.pos.y, this.r);
+    //print(hit);
     if (rotationX != undefined && rotationY != undefined) {
-      if (this.checkCollisions(walls, this.pos.x + this.vel.x + int(rotationY) / 50, this.pos.y, this.r).length <= 0) {
+      if (this.checkCollisions(squares, bounds, this.pos.x + this.vel.x + int(rotationY) / 50, this.pos.y, this.r) == null) {
         this.vel.x += int(rotationY) / 50;
       }
-      if (this.checkCollisions(walls, this.pos.x, this.pos.y + this.vel.y + constrain(int(rotationX), -90, 90) / 50, this.r).length <= 0) {
+      if (this.checkCollisions(squares, bounds, this.pos.x, this.pos.y + this.vel.y + constrain(int(rotationX), -90, 90) / 50, this.r) == null) {
         this.vel.y += constrain(int(rotationX), -90, 90) / 50;
       }
     }
     this.pos.x += this.vel.x;
     this.pos.y += this.vel.y;
-
-    respondCollision(checkCollisions(walls));
+    this.respondCollision(hit);
   }
 
   draw() {
     push();
     colorMode(HSB, 1);
-    fill(map(ballPos.y, 0, height, 0, 1), map(ballPos.x, 0, width, 0, 1), 1);
-    circle(ballPos.x, ballPos.y, ballSize);
+    fill(map(this.pos.y, 0, height, 0, 1), map(this.pos.x, 0, width, 0, 1), 1);
+    circle(this.pos.x, this.pos.y, this.r * 2);
     pop();
   }
 
-  checkCollisions(walls, x, y, r) {
-    let hits = [];
-    walls.forEach((wall) => {
-      let hit = wall.collide(x, y, r);
-      if (hit[0] != false) {
-        hits.push(hit);
+  checkCollisions(squares, bounds, x, y, r) {
+    for (let i = 0; i < squares.length; i++) {
+      let square = squares[i];
+      for (let j = 0; j < square.walls.length; j++) {
+        let wall = square.walls[j];
+        let hit = wall.collide(x, y, r);
+        //console.log(hit[0]);
+        if (hit[0]) {
+          hit[2] = wall.getNormal();
+          return hit;
+        }
       }
+    }
+
+    for (let i = 0; i < bounds.length; i++) {
+      let wall = bounds[i];
+      let hit = wall.collide(x, y, r);
+      //console.log(hit[0]);
+      if (hit[0]) {
+        hit[2] = wall.getNormal();
+        return hit;
+      }
+    }
+    return null;
+  }
+
+  respondCollision(hit) {
+    //console.log(hit);
+    if (hit != null && hit[0]) {
+      print(hit[1]);
+      let newPos = p5.Vector.sub(this.pos, hit[1]);
+      newPos.setMag(this.r + 4 );
+      this.pos = p5.Vector.add(hit[1], newPos);
+      this.vel.reflect(hit[2]);
+    }
+  }
+}
+
+class Square {
+  constructor(x, y, s) {
+    this.x = x;
+    this.y = y;
+    this.s = s;
+    let hs = s / 2;
+    this.walls = [
+      new Wall(this.x - hs, this.y - hs, this.x + hs, this.y - hs),
+      new Wall(this.x + hs, this.y - hs, this.x + hs, this.y + hs),
+      new Wall(this.x + hs, this.y + hs, this.x - hs, this.y + hs),
+      new Wall(this.x - hs, this.y + hs, this.x - hs, this.y - hs)
+    ];
+  }
+
+  draw() {
+    this.walls.forEach((wall) => {
+      wall.draw();
     });
-    return hits;
   }
-
-  respondCollision(hits) {
-    
-  }
-
-
 }
 
 class Wall {
@@ -104,23 +164,22 @@ class Wall {
   }
 
   collide(bx, by, br) {
-    return lineCircle(a.x, a.y, b.x, b.y, bx, by, br);
+    return lineCircle(this.a.x, this.a.y, this.b.x, this.b.y, bx, by, br);
   }
 
   getNormal() {
-    let inputVector = createVector(b.x - a.x, b.y - a.y);
-    return createVectorVector(inputVector.y * -1, inputVector.x).normalize();
+    let inputVector = createVector(this.b.x - this.a.x, this.b.y - this.a.y);
+    return createVector(inputVector.y * -1, inputVector.x).normalize();
   }
 }
 
 function lineCircle(x1, y1, x2, y2, cx, cy, r) {
-
-  // is either end INSIDE the circle?
+  // is either end INSIDE the circle? 
   // if so, return true immediately
-  if (dist(a.x, a.y, ball.pos.x, ball.pos.y) < ball.r) {
-      return [true, a];
-  } else if (dist(b.x, b.y, ball.pos.x, ball.pos.y) < ball.r) {
-      return [true, a];
+  if (dist(x1, y1, cx, cy) < r) {
+      return [true, this.a];
+  } else if (dist(x2, y2, cx, cy) < r) {
+      return [true, this.b];
   }
 
   // get length of the line
