@@ -1,5 +1,5 @@
 const friction = 0.5;
-const mq = window.matchMedia("(max-width: 480px)");
+const mq = window.matchMedia("(max-width: 520px)");
 
 let ballSize = 150;
 let ballPos;
@@ -13,8 +13,7 @@ function setup() {
   // og sørger derefter for at kanten tælles med i width
   canvas.elt.style.border = '5px solid black';
   canvas.elt.style.boxSizing = 'border-box';
-  canvas.elt.style.borderRadius = '20px';
-  
+ 
   document.getElementById("beholder").appendChild(canvas.elt);
 
   ballPos = createVector(width / 2, height / 2);
@@ -50,7 +49,12 @@ function draw() {
 }
 
 function windowResized() {
-  resizeCanvas((((rotationX != undefined && rotationY != undefined) || mq.matches) ? windowWidth : windowHeight / 20 * 10.5), windowHeight);
+  if ((rotationX != undefined && rotationY != undefined) || mq.matches) {
+    resizeCanvas(windowWidth, windowHeight);
+  } else {
+    resizeCanvas(windowHeight / 20 * 10.5, windowHeight);
+  }
+  
 }
 
 function checkBounds(ballPos) {
