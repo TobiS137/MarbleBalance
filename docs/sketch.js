@@ -23,7 +23,6 @@ function setup() {
 }
 
 function draw() {
-  resizeCanvas(windowHeight / 20 * ((mq.matches) ? windowWidth : 10.5), windowHeight);
   background(0);
   push();
   if (rotationX != undefined && rotationY != undefined) {
@@ -45,7 +44,13 @@ function draw() {
   text("!!!!", width / 2, 100);
   text("X: " + str(int(rotationX)), width / 2, 200);
   text("Y: " + str(int(rotationY)), width / 2, 300);
+  text("mq?: " + str(mq.matches), width / 2, 400);
+
   pop();
+}
+
+function windowResized() {
+  resizeCanvas(((mq.matches) ? windowWidth : windowHeight / 20 * 10.5), windowHeight);
 }
 
 function checkBounds(ballPos) {
