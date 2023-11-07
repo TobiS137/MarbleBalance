@@ -50,7 +50,7 @@ function draw() {
 }
 
 function windowResized() {
-  resizeCanvas(((mq.matches) ? windowWidth : windowHeight / 20 * 10.5), windowHeight);
+  resizeCanvas(((rotationX != undefined && rotationY != undefined) ? windowWidth : windowHeight / 20 * 10.5), windowHeight);
 }
 
 function checkBounds(ballPos) {
