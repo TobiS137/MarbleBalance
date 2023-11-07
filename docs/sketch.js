@@ -1,6 +1,9 @@
 const friction = 0.5;
-
 const mq = window.matchMedia("(max-width: 480px)");
+
+let ballSize = 50;
+let ballPos;
+let ballVel;
 
 function setup() {
   let canvas = createCanvas(windowHeight / 20 * 11, windowHeight);
@@ -15,7 +18,7 @@ function setup() {
   document.getElementById("beholder").appendChild(canvas.elt);
 
   ballPos = createVector(width / 2, height / 2);
-  ballVel = createVector(5, 0);
+  ballVel = createVector(0, 0);
   pixelDensity(1);
 }
 
