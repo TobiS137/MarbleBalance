@@ -64,7 +64,6 @@ function checkBounds(ballPos) {
     if (abs(ballVel.x) < 0.1) {
       ballVel.x = 0;
     }
-    navigator.vibrate(100);
   }
   if (ballPos.x + ballSize / 2 > width) {
     ballPos.x = width - ballSize / 2 - 2;
@@ -74,7 +73,6 @@ function checkBounds(ballPos) {
     if (abs(ballVel.x) < 0.1) {
       ballVel.x = 0;
     }
-    navigator.vibrate(100);
   }
   if (ballPos.y - ballSize / 2 < 0) {
     ballPos.y = ballSize / 2 + 2;
@@ -84,7 +82,6 @@ function checkBounds(ballPos) {
     if (abs(ballVel.y) < 0.1) {
       ballVel.y = 0;
     }
-    navigator.vibrate(100);
   }
   if (ballPos.y + ballSize / 2 > height) {
     ballPos.y = height - ballSize / 2 - 2;
@@ -94,6 +91,5 @@ function checkBounds(ballPos) {
     if (abs(ballVel.y) < 0.1) {
       ballVel.y = 0;
     }
-    navigator.vibrate(100);
   }
 }
