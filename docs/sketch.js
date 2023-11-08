@@ -31,7 +31,6 @@ function draw() {
   resizeCanvas((rotationX != null || mq.matches) ? windowWidth : windowHeight / 20 * 10.5, windowHeight);
   background(0);
   push();
-  print(rotationX);
   if (rotationX != undefined && rotationY != undefined) {
     if (ballPos.x + ballVel.x + int(rotationY) / 100 > 0 && ballPos.x + ballVel.x + int(rotationY) / 100 < width) {
       ballVel.x += int(rotationY) / 50;
@@ -52,9 +51,7 @@ function draw() {
   text("X: " + str(int(rotationX)), width / 2, 200);
   text("Y: " + str(int(rotationY)), width / 2, 300);
   text("mq? - " + str(mq.matches) + ": " + str(windowWidth), width / 2, 400);
-
   pop();
-
 }
 
 
@@ -67,6 +64,7 @@ function checkBounds(ballPos) {
     if (abs(ballVel.x) < 0.1) {
       ballVel.x = 0;
     }
+    navigator.vibrate(100);
   }
   if (ballPos.x + ballSize / 2 > width) {
     ballPos.x = width - ballSize / 2 - 2;
@@ -76,6 +74,7 @@ function checkBounds(ballPos) {
     if (abs(ballVel.x) < 0.1) {
       ballVel.x = 0;
     }
+    navigator.vibrate(100);
   }
   if (ballPos.y - ballSize / 2 < 0) {
     ballPos.y = ballSize / 2 + 2;
@@ -85,6 +84,7 @@ function checkBounds(ballPos) {
     if (abs(ballVel.y) < 0.1) {
       ballVel.y = 0;
     }
+    navigator.vibrate(100);
   }
   if (ballPos.y + ballSize / 2 > height) {
     ballPos.y = height - ballSize / 2 - 2;
@@ -95,4 +95,5 @@ function checkBounds(ballPos) {
       ballVel.y = 0;
     }
   }
+  navigator.vibrate(100);
 }
