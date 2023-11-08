@@ -94,6 +94,6 @@ function checkBounds(ballPos) {
     if (abs(ballVel.y) < 0.1) {
       ballVel.y = 0;
     }
+    navigator.vibrate(100);
   }
-  navigator.vibrate(100);
 }
